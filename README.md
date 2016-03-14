@@ -5,7 +5,7 @@ This is inspired by Nils Liberg's fantastic [SublimeKSP plugin](http://nilsliber
 highlighting for now but I hope to incorporate Nils' KSP compiler eventually.
 
 ## Installation
-Using [pathogen](https://github.com/tpope/vim-pathogen.git)
+Using [pathogen](https://github.com/tpope/vim-pathogen.git):
 ```
 cd ~/.vim/bundle
 git clone https://github.com/nojanath/vim-ksp.git
