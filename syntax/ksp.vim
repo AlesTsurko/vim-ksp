@@ -14,7 +14,22 @@ elseif exists("b:current_syntax")
 endif
 
 " Comments
-syn region kspComment start="{" end="}"
+syn keyword kspCommentTodo TODO FIXME XXX TBD contained
+syn region kspComment start="{" end="}" contains=@Spell,kspCommentTodo
+
+" Function name
+syn match kspFuncName /\v<[_a-zA-Z][a-zA-Z0-9_]*|[\(\)]>/
+
+" Identifiers
+syn match kspIdentefier /\v<[_a-z][a-zA-Z0-9_]*>/
+
+syn match kspConstant /\v<[_A-Z][A-Z0-9_]*>/
+
+" numbers
+syn match kspInt /\v-?[0-9][0-9]*/
+syn match kspFloat /\v-?[0-9][0-9]\.[0-9]+/
+syn match kspHex /\v0x[0-9A-Fa-f]+/
+
 " Strings
 syn region kspString start="\'" end="\'"
 syn region kspString start="\"" end="\""
@@ -23,14 +38,31 @@ syn region kspString start="\"" end="\""
 syn keyword kspKeyword 
   \ const
   \ declare
+  \ family
+  \ function
+  \ pers
+  \ struct
+
+syn keyword kspType
   \ ui_button
   \ ui_knob
+  \ ui_file_selector
   \ ui_label
+  \ ui_level_meter
   \ ui_menu
   \ ui_slider
   \ ui_switch 
   \ ui_table
+  \ ui_text_edit
   \ ui_value_edit
+  \ ui_waveform
+  \ ui_xy
+  \ $
+  \ %
+  \ ~
+  \ ?
+  \ @
+  \ !
 
 " Callbacks
 syn match kspKeyword "\von\sasync_complete"
@@ -47,9 +79,12 @@ syn match kspKeyword "\von\srpn"
 syn match kspKeyword "\von\sui_control"
 syn match kspKeyword "\von\sui_update"
 syn match kspKeyword "\vend\son"
+syn match kspKeyword "\vend\sfunction"
+syn match kspKeyword "\vend\sfamily"
+syn match kspKeyword "\vend\sstruct"
 
 " Control Statements
-syn keyword kspControl if else for while
+syn keyword kspControl if else for to while
 syn match kspControl "\vend\sif"
 syn match kspControl "\vend\sfor"
 syn match kspControl "\vend\swhile"
@@ -57,6 +92,7 @@ syn match kspControl "\vend\swhile"
 " Operators
 syn match kspOperator "\v(\:\=|\+|-|\*|/|mod)"
 syn match kspOperator "\v(\>|\<|\>\=|\<\=|\=|\#)"
+syn match kspOperator "&"
 
 " General Commands
 syn keyword kspCommand 
@@ -147,6 +183,7 @@ syn keyword kspCommand
   \ ignore_controller
   \ ignore_event
   \ ignore_midi
+  \ iterate_macro
   \ in_range
   \ inc
   \ load_array
@@ -211,6 +248,7 @@ syn keyword kspCommand
   \ pgs_set_str_key_val
   \ pgs_str_key_exists
   \ play_note
+  \ print
   \ purge_group
   \ random
   \ read_persistent_var
@@ -280,8 +318,22 @@ syn keyword kspCommand
   \ zone_slice_loop_count
   \ zone_slice_start
 
+
+" Preprocessor
+
+syn keyword kspPreprocessor
+            \ define
+            \ macro
+
+syn match kspPreprocessor "define"
+syn match kspPreprocessor "\vend\smacro"
+
+" Import
+syn keyword kspImport
+            \ import
+
 " Built in variables
-syn match kspBuiltinVar /\v[%$](
+syn match kspBuiltinVar /\v[%$]?(
   \ALL_EVENTS|
   \ALL_GROUPS|
   \CC_NUM|
@@ -878,11 +930,21 @@ syn match kspBuiltinVar /\v[%$](
 
 " Highlights
 highlight link kspComment Comment
+highlight link kspCommentTodo Todo
 highlight link kspString String
 highlight link kspKeyword Statement
 highlight link kspCommand Function
 highlight link kspBuiltinVar Constant
+highlight link kspConstant Constant
 highlight link kspOperator Operator
 highlight link kspControl Conditional
+highlight link kspType Type
+highlight link kspPreprocessor Define
+highlight link kspImport Include
+highlight link kspIdentefier Identifier
+highlight link kspFuncName Function
+highlight link kspInt Number
+highlight link kspHex Number
+highlight link kspFloat Float
 
 let b:current_syntax = "ksp"
