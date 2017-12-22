@@ -84,10 +84,11 @@ syn match kspKeyword "\vend\sfamily"
 syn match kspKeyword "\vend\sstruct"
 
 " Control Statements
-syn keyword kspControl if else for to while
+syn keyword kspControl if else for to while select case
 syn match kspControl "\vend\sif"
 syn match kspControl "\vend\sfor"
 syn match kspControl "\vend\swhile"
+syn match kspControl "\vend\sselect"
 
 " Operators
 syn match kspOperator "\v(\:\=|\+|-|\*|/|mod)"
